@@ -13,7 +13,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Get stored OTP from Firestore
-    const otpRef = db.collection("reset_otps").doc(email);
+    const otpRef = db
+      .collection(process.env.NEXT_PUBLIC_COLLECTIONS_RESET_OTPS as string)
+      .doc(email);
     const otpDoc = await otpRef.get();
 
     if (!otpDoc.exists) {

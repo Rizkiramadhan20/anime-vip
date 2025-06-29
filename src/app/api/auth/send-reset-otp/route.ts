@@ -37,7 +37,9 @@ export async function POST(request: NextRequest) {
     const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
 
     // Store OTP in Firestore with prefix to distinguish from email verification OTPs
-    const otpRef = db.collection("reset_otps").doc(email);
+    const otpRef = db
+      .collection(process.env.NEXT_PUBLIC_COLLECTIONS_RESET_OTPS as string)
+      .doc(email);
     await otpRef.set({
       otp,
       email,
