@@ -13,6 +13,10 @@ export const signInSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(6, "Password must be at least 6 characters"),
+  rememberMe: z.boolean({
+    required_error: "Please select whether to remember your login",
+    invalid_type_error: "Remember me must be a boolean value",
+  }),
 });
 
 // Sign Up validation schema

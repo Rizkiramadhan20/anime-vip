@@ -218,7 +218,7 @@ const createResetOTPEmailTemplate = (otp: string, displayName: string) => `
 // Konfigurasi transporter email
 const createTransporter = () => {
   return nodemailer.createTransport({
-    service: process.env.EMAIL_SERVICE || "gmail", // gmail, outlook, yahoo, etc.
+    service: process.env.EMAIL_SERVICE, // gmail, outlook, yahoo, etc.
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD,
@@ -241,13 +241,10 @@ export const sendOTPEmail = async (
       subject: "🔐 Verify Your Email - AniHuaVerse",
       html: createOTPEmailTemplate(otp, displayName),
     };
-
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent: %s", info.messageId);
 
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error("Error sending email:", error);
     throw new Error("Failed to send verification email");
   }
 };
@@ -366,12 +363,9 @@ export const sendWelcomeEmail = async (email: string, displayName: string) => {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log("Welcome email sent: %s", info.messageId);
 
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error("Error sending welcome email:", error);
-    // Don't throw error for welcome email as it's not critical
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
@@ -396,11 +390,9 @@ export const sendResetOTPEmail = async (
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log("Reset OTP email sent: %s", info.messageId);
 
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error("Error sending reset OTP email:", error);
     throw new Error("Failed to send reset OTP email");
   }
 };

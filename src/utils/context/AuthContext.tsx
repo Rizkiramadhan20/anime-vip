@@ -11,10 +11,9 @@ import {
     signOut,
     onAuthStateChanged,
     GoogleAuthProvider,
+    GithubAuthProvider,
     signInWithPopup,
     createUserWithEmailAndPassword,
-    sendPasswordResetEmail,
-    sendEmailVerification,
 } from 'firebase/auth';
 
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
@@ -242,6 +241,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     };
 
+    const loginWithGithub = async (): Promise<UserAccount> => {
+        try {
+            const provider = new GithubAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+
+            const userDoc = await getDoc(doc(db, process.env.NEXT_PUBLIC_COLLECTIONS_ACCOUNTS as string, result.user.uid));
+            let userData: UserAccount;
+
+            if (!userDoc.exists()) {
+                userData = await createSocialUser({
+                    uid: result.user.uid,
+                    email: result.user.email,
+                    displayName: result.user.displayName,
+                    photoURL: result.user.photoURL
+                });
+            } else {
+                userData = userDoc.data() as UserAccount;
+            }
+
+            // Get Firebase auth token and create session
+            const idToken = await result.user.getIdToken();
+            await fetch('/api/auth/session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ idToken }),
+            });
+
+            setUser(userData);
+            const welcomeMessage = getWelcomeMessage(userData);
+            toast.success(welcomeMessage);
+            handleRedirect(userData);
+
+            return userData;
+        } catch (error) {
+            // Check if the error is due to disabled account
+            if (error instanceof Error && error.message.includes('auth/user-disabled')) {
+                setShowInactiveModal(true);
+            } else {
+                toast.error('Gagal login dengan GitHub');
+            }
+            throw error;
+        }
+    };
+
+    const loginWithFacebook = async (): Promise<UserAccount> => {
+        try {
+            // For now, we'll show a message that Facebook login is not implemented
+            toast.error('Login dengan Facebook belum tersedia');
+            throw new Error('Facebook login not implemented');
+        } catch (error) {
+            throw error;
+        }
+    };
+
     const signUp = async (email: string, password: string, displayName: string): Promise<void> => {
         try {
             if (!process.env.NEXT_PUBLIC_COLLECTIONS_ACCOUNTS) {
@@ -461,6 +516,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loading,
         login,
         loginWithGoogle,
+        loginWithGithub,
+        loginWithFacebook,
         logout,
         deleteAccount,
         hasRole,

@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
 
-export default function AnimePage() {
+export default function MangaPage() {
     const { user, loading } = useAuth();
     const router = useRouter();
 
