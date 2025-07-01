@@ -89,3 +89,14 @@ export interface HomeAnimeResponse {
     top_anime: TopAnime;
   };
 }
+
+// Interface untuk kebutuhan AnimeContent dan AsideCard
+export interface Anime {
+  href: string;
+  title: string;
+  episodes: number | string;
+  score: number | string;
+  latestReleaseDate?: string;
+  poster: string;
+  releaseDay?: string;
+}
