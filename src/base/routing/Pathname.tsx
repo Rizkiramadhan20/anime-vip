@@ -1,10 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
+
 import { usePathname } from "next/navigation";
+
 import { ThemeProvider } from "@/utils/theme/theme-provider";
+
 import Header from "@/components/layout/Header";
+
 import Sidebar from "@/components/layout/Sidebar";
+
 import { Toaster } from "sonner";
 
 const Pathname = ({ children }: { children: React.ReactNode }) => {
@@ -27,9 +32,9 @@ const Pathname = ({ children }: { children: React.ReactNode }) => {
                 toastOptions={{
                     duration: 3000,
                     style: {
-                        background: 'black',
-                        color: '#fff',
-                        border: '1px solid #e5e7eb',
+                        background: 'var(--sidebar)',
+                        color: 'var(--sidebar-foreground)',
+                        border: '1px solid var(--sidebar-border)',
                         boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                     },
                     className: 'font-medium',
@@ -37,12 +42,12 @@ const Pathname = ({ children }: { children: React.ReactNode }) => {
             />
 
             {isAnimeRoute ? (
-                <div className="flex h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden relative">
+                <div className="flex h-screen bg-[var(--background)] overflow-hidden relative">
                     {/* Animated Background Elements */}
                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-                        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-                        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+                        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[var(--sidebar-primary)] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+                        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[var(--sidebar-accent)] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+                        <div className="absolute top-40 left-40 w-80 h-80 bg-[var(--destructive)] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
                     </div>
 
                     {/* Sidebar Component */}

@@ -24,6 +24,8 @@
     "clsx": "^2.1.1",
     "firebase": "^11.9.1",
     "firebase-admin": "^13.4.0",
+    "framer-motion": "^12.20.5",
+    "imagekit": "^6.0.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.524.0",
     "next": "15.3.4",
