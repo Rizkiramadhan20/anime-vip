@@ -16,7 +16,7 @@ export default function LatestRealese({ leatestAnichinData }: LatestProps) {
     return (
         <section className="flex flex-col gap-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-4 border-b border-gray-200 dark:border-gray-700 pb-4 md:pb-6">
-                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Completed Donghua</h3>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Latest Realese</h3>
                 <Link href={"/donghua/completed"} className="mt-2 md:mt-0 text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 font-semibold flex items-center gap-2">
                     Lihat Semua
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,11 +46,10 @@ export default function LatestRealese({ leatestAnichinData }: LatestProps) {
                                         {i.type}
                                     </div>
                                 </div>
-                                <div className="py-6 px-4 flex flex-col gap-1">
+                                <div className="py-6 px-4">
                                     <h4 className="font-bold text-base md:text-lg mb-1 text-[var(--sidebar-foreground)] group-hover:text-[var(--sidebar-primary)] transition-colors duration-300 line-clamp-1">
                                         {i.title}
                                     </h4>
-                                    <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium">EP {Math.floor(Math.random() * 24) + 1}</span>
                                 </div>
                             </CardContent>
                         </Card>

@@ -59,7 +59,7 @@ export interface TopUpcoming {
 }
 
 // ✅ Interface untuk Top Anime (Weekly, Monthly, All)
-export interface TopAnimeItem {
+export interface ScheduleItem {
   title: string;
   animeId: string;
   href: string;
@@ -69,10 +69,10 @@ export interface TopAnimeItem {
   rank: number;
 }
 
-export interface TopAnime {
-  weekly: TopAnimeItem[];
-  monthly: TopAnimeItem[];
-  all: TopAnimeItem[];
+export interface Schedule {
+  weekly: ScheduleItem[];
+  monthly: ScheduleItem[];
+  all: ScheduleItem[];
 }
 
 // ✅ Interface untuk Response Utama
@@ -86,17 +86,6 @@ export interface HomeAnimeResponse {
     popular_today: PopularToday;
     latest_realese: LatestRelease;
     top_upcoming: TopUpcoming;
-    top_anime: TopAnime;
+    schedule: Schedule;
   };
-}
-
-// Interface untuk kebutuhan AnimeContent dan AsideCard
-export interface Anime {
-  href: string;
-  title: string;
-  episodes: number | string;
-  score: number | string;
-  latestReleaseDate?: string;
-  poster: string;
-  releaseDay?: string;
 }

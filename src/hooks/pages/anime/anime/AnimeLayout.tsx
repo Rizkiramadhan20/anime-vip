@@ -16,12 +16,15 @@ import BannerLayout from "./banner/BannerLayout";
 
 import TopUpcomingAside from './aside/TopUpcomingAside';
 
+import Schedule from "@/hooks/pages/anime/anime/schedule/Schedule"
+
 interface AnimeContentProps {
     animeData: {
         popular_today: PopularToday;
         latest_realese: LatestRelease
         top_upcoming: TopUpcoming
         banner: BannerItem[];
+        schedule: any; // Assuming the schedule type is not provided in the interface
     };
 }
 
@@ -80,6 +83,8 @@ export default function AnimePage({ animeData }: AnimeContentProps) {
                             <TopUpcomingAside topUpcoming={animeData.top_upcoming} />
                         </div>
                     </div>
+
+                    <Schedule schedule={animeData.schedule} />
                 </div>
             </div>
         </div>
