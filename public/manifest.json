@@ -1,0 +1,163 @@
+{
+  "short_name": "AniHuaVerse: Satu Versi, Semua Dunia",
+  "name": "AniHuaVerse",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "prefer_related_applications": false,
+  "categories": ["anime", "donghua", "manga", "drakor", "Rizki Ramadhan"],
+  "screenshots": [
+    {
+      "src": "/desktop.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpg"
+    }
+  ],
+  "description": "Selamat datang di AniHuaVerse, gerbang ke dunia hiburan Asia yang tak terbatas. Satu tempat untuk menyelami kisah-kisah terbaik dari Jepang, Tiongkok, dan Korea – semua bersatu dalam satu semesta hiburan.",
+  "id": "/",
+  "dir": "ltr",
+  "lang": "en",
+  "orientation": "any",
+  "scope": "/",
+  "scope_extensions": [],
+  "launch_handler": {
+    "client_mode": "auto"
+  },
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  "related_applications": [],
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "window_controls_overlay": {
+    "titlebar_color": "#ffffff",
+    "border_color": "#e5e7eb",
+    "button_background_color": "#f3f4f6"
+  },
+  "edge_side_panel": {
+    "preferred_width": 400,
+    "preferred_height": 600
+  },
+  "file_handlers": [
+    {
+      "action": "/open-file",
+      "accept": {
+        "application/pdf": [".pdf"],
+        "image/png": [".png"],
+        "image/jpeg": [".jpg", ".jpeg"]
+      },
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ],
+      "name": "Open supported files"
+    }
+  ],
+  "handle_links": {
+    "urls": ["https://riznime.vercel.app/*", "https://riznime.vercel.app/*"]
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+anime",
+      "url": "/?anime=%s",
+      "name": "Open anime link"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "shortcuts": [
+    {
+      "name": "Latest Anime",
+      "short_name": "Latest",
+      "description": "View latest anime releases",
+      "url": "/anime",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Latest Manga",
+      "short_name": "Manga",
+      "description": "View latest manga releases",
+      "url": "/manga",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Donghua",
+      "short_name": "Donghua",
+      "description": "Browse donghua content",
+      "url": "/donghua",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Drakor",
+      "short_name": "Drakor",
+      "description": "Browse drakor content",
+      "url": "/drakor",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "name": "AniHuaVerse Widget",
+      "short_name": "AniHuaVerse",
+      "description": "Selamat datang di AniHuaVerse, gerbang ke dunia hiburan Asia yang tak terbatas. Satu tempat untuk menyelami kisah-kisah terbaik dari Jepang, Tiongkok, dan Korea – semua bersatu dalam satu semesta hiburan",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ],
+      "auth": false,
+      "ms_ac_template": "widgets/anime-widget.html"
+    }
+  ]
+}

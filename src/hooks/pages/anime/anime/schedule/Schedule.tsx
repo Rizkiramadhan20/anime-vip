@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { Schedule as ScheduleType, ScheduleItem } from '@/interface/Anime';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import ImagePlaceholder from '@/base/helper/ImagePlaceholder';
 import { motion } from "framer-motion";
+
+import Image from 'next/image';
 
 import Link from 'next/link';
 
@@ -21,12 +23,10 @@ interface ScheduleProps {
 export default function Schedule({ schedule }: ScheduleProps) {
     const [selectedSeason, setSelectedSeason] = useState('weekly');
 
-    // Pilih data sesuai tab (sementara hanya weekly, monthly, all yang ada di data)
     let animeList: ScheduleItem[] = [];
     if (selectedSeason === 'weekly') animeList = schedule?.weekly || [];
     else if (selectedSeason === 'monthly') animeList = schedule?.monthly || [];
     else if (selectedSeason === 'all') animeList = schedule?.all || [];
-    // Untuk tab lain (spring, summer, dst) bisa dihubungkan ke data lain jika ada
 
     return (
         <section>
@@ -70,9 +70,11 @@ export default function Schedule({ schedule }: ScheduleProps) {
                     >
                         {anime.poster ? (
                             <div className="relative w-full aspect-[3/4] h-52 sm:h-full">
-                                <img
+                                <Image
                                     src={anime.poster}
                                     alt={anime.title}
+                                    fill
+                                    loading='lazy'
                                     className="w-full h-full object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-200"
                                 />
                                 {/* Overlay for title and genres */}

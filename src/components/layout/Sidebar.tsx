@@ -16,7 +16,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) {
-    const { logout } = useAuth();
+    const { user, logout } = useAuth();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const handleLogout = async () => {
@@ -44,7 +44,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                 {/* Logo Section */}
                 <div className="flex items-center justify-center py-8 border-b border-[var(--sidebar-border)]">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <img src="/favicon.png" alt="Logo" className="w-8 h-8" />
+                        <img src="/logo.png" alt="Logo" className="w-8 h-8" />
                     </div>
                 </div>
 
@@ -93,28 +93,30 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                 </nav>
 
                 {/* Logout Button */}
-                <div className="p-4 border-t border-[var(--sidebar-border)]">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="w-full p-3 rounded-xl hover:bg-red-500/20 hover:text-red-400 transition-all duration-300 flex items-center gap-3 justify-start group"
-                        onClick={handleLogout}
-                        disabled={isLoggingOut}
-                    >
-                        {isLoggingOut ? (
-                            <Loader2 size={22} className="flex-shrink-0 animate-spin text-[var(--sidebar-foreground)]" />
-                        ) : (
-                            <LogOut size={22} className="flex-shrink-0 text-[var(--sidebar-foreground)]" />
-                        )}
-                        <span className="text-red-400 font-medium lg:hidden">
-                            {isLoggingOut ? 'Logging out...' : 'Logout'}
-                        </span>
-                        {/* Tooltip for large screens */}
-                        <span className="absolute left-full ml-2 px-2 py-1 bg-[var(--sidebar)] text-red-400 text-sm rounded-md opacity-0 invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 whitespace-nowrap z-50">
-                            {isLoggingOut ? 'Logging out...' : 'Logout'}
-                        </span>
-                    </Button>
-                </div>
+                {user && (
+                    <div className="p-4 border-t border-[var(--sidebar-border)]">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="w-full p-3 rounded-xl hover:bg-red-500/20 hover:text-red-400 transition-all duration-300 flex items-center gap-3 justify-start group"
+                            onClick={handleLogout}
+                            disabled={isLoggingOut}
+                        >
+                            {isLoggingOut ? (
+                                <Loader2 size={22} className="flex-shrink-0 animate-spin text-[var(--sidebar-foreground)]" />
+                            ) : (
+                                <LogOut size={22} className="flex-shrink-0 text-[var(--sidebar-foreground)]" />
+                            )}
+                            <span className="text-red-400 font-medium lg:hidden">
+                                {isLoggingOut ? 'Logging out...' : 'Logout'}
+                            </span>
+                            {/* Tooltip for large screens */}
+                            <span className="absolute left-full ml-2 px-2 py-1 bg-[var(--sidebar)] text-red-400 text-sm rounded-md opacity-0 invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 whitespace-nowrap z-50">
+                                {isLoggingOut ? 'Logging out...' : 'Logout'}
+                            </span>
+                        </Button>
+                    </div>
+                )}
             </aside>
 
             {/* Overlay */}

@@ -8,6 +8,8 @@ import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import Link from 'next/link';
 
+import Image from 'next/image';
+
 interface BannerItem {
     animeId: string;
     image: string;
@@ -137,8 +139,11 @@ export default function BannerLayout({ bannerList, activeBanner, setActiveBanner
                             transition={{ duration: 0.7, type: 'spring', stiffness: 80 }}
                             className="hidden md:block absolute right-0 bottom-0 h-2/3 md:h-full z-20 pointer-events-none select-none"
                         >
-                            <img
+                            <Image
                                 src={bannerList[activeBanner].image}
+                                width={1080}
+                                height={1080}
+                                loading='lazy'
                                 alt={bannerList[activeBanner].title}
                                 className="h-full object-contain drop-shadow-2xl scale-110 md:scale-125 opacity-90 transition-transform duration-700"
                             />

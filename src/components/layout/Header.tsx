@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 import { useAuth } from '@/utils/context/AuthContext';
 
@@ -63,20 +64,28 @@ export default function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps)
                 <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-lg border border-yellow-500/30">
                     <Coins size={18} className="text-yellow-400" />
                     <span className="text-yellow-400 font-semibold text-sm">
-                        {user?.token || 0}
+                        {user ? user.token : 'premium'}
                     </span>
                 </div>
 
                 {/* User Profile */}
-                <div className="flex items-center gap-3">
-                    <span className="font-medium text-[var(--sidebar-foreground)] hidden sm:block">{user?.displayName}</span>
-                    <Avatar className="w-10 h-10 ring-2 ring-[var(--sidebar-primary)] hover:ring-[var(--sidebar-primary)] transition-all duration-300">
-                        <AvatarImage src={user?.photoURL || undefined} />
-                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white font-semibold">
-                            {user?.displayName?.[0] || 'U'}
-                        </AvatarFallback>
-                    </Avatar>
-                </div>
+                {user ? (
+                    <div className="flex items-center gap-3">
+                        <span className="font-medium text-[var(--sidebar-foreground)] hidden sm:block">{user?.displayName}</span>
+                        <Avatar className="w-10 h-10 ring-2 ring-[var(--sidebar-primary)] hover:ring-[var(--sidebar-primary)] transition-all duration-300">
+                            <AvatarImage src={user?.photoURL || undefined} />
+                            <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white font-semibold">
+                                {user?.displayName?.[0] || 'U'}
+                            </AvatarFallback>
+                        </Avatar>
+                    </div>
+                ) : (
+                    <Link href="/signin">
+                        <button className="px-4 py-2 bg-[var(--sidebar-primary)] text-white rounded-lg font-semibold hover:bg-[var(--sidebar-accent)] transition-colors duration-200">
+                            Sign In
+                        </button>
+                    </Link>
+                )}
             </div>
         </header>
     );

@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { useAuth } from '@/utils/context/AuthContext';
-
 import { useRouter } from 'next/navigation';
 
 import { LatestRelease, PopularToday, TopUpcoming, BannerItem } from '@/interface/Anime';
@@ -29,7 +27,6 @@ interface AnimeContentProps {
 }
 
 export default function AnimePage({ animeData }: AnimeContentProps) {
-    const { user, loading } = useAuth();
     const router = useRouter();
 
     const [activeBanner, setActiveBanner] = useState(0);
@@ -42,22 +39,6 @@ export default function AnimePage({ animeData }: AnimeContentProps) {
         }, 4000);
         return () => clearInterval(interval);
     }, [bannerList]);
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-500 border-t-transparent mx-auto"></div>
-                    <p className="mt-6 text-gray-300 text-lg font-medium">Loading your anime world...</p>
-                </div>
-            </div>
-        );
-    }
-
-    if (!user) {
-        router.push('/signin');
-        return null;
-    }
 
     return (
         <div className="py-6 px-4 sm:px-5">

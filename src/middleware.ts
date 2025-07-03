@@ -50,7 +50,7 @@ export async function middleware(request: NextRequest) {
     } catch (error) {
       console.error("Error verifying session:", error);
       // If there's an error, clear the session and redirect to signin
-      const response = NextResponse.redirect(new URL("/signin", request.url));
+      const response = NextResponse.redirect(new URL("/anime", request.url));
       response.cookies.delete("session");
       return response;
     }
@@ -86,7 +86,7 @@ export async function middleware(request: NextRequest) {
     } catch (error) {
       console.error("Error checking email verification:", error);
       // If there's an error, redirect to signin
-      return NextResponse.redirect(new URL("/signin", request.url));
+      return NextResponse.redirect(new URL("/anime", request.url));
     }
   }
 
@@ -100,10 +100,8 @@ export async function middleware(request: NextRequest) {
     !pathname.startsWith("/donghua/") &&
     !pathname.startsWith("/manga/")
   ) {
-    // Store the original URL to redirect back after login
-    const response = NextResponse.redirect(new URL("/signin", request.url));
-    response.cookies.set("redirectAfterLogin", pathname);
-    return response;
+    // Tidak melakukan redirect, biarkan request berjalan normal
+    return NextResponse.next();
   }
 
   return NextResponse.next();

@@ -45,7 +45,7 @@ export default function TopUpcomingAside({ topUpcoming }: TopUpcomingAsideProps)
                 message="Loading in progress"
                 progress={loadingProgress}
             />
-            <Card className="flex flex-col gap-8 p-6 rounded-2xl shadow-xl min-h-[400px] max-h-[80vh] overflow-y-auto bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200 dark:border-gray-800">
+            <Card className="flex flex-col gap-8 p-6 rounded-2xl shadow-xl min-h-[400px] max-h-[100dvh] overflow-y-auto bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200 dark:border-gray-800">
                 <div className='flex justify-between items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-4'>
                     <h3 className='text-2xl font-extrabold tracking-tight' style={{ color: 'var(--primary)' }}>Top Upcoming</h3>
                     <Link href={'/anime/top-upcoming'} className='text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium'>
@@ -67,6 +67,7 @@ export default function TopUpcomingAside({ topUpcoming }: TopUpcomingAsideProps)
                                         src={item.poster}
                                         alt={item.title}
                                         fill
+                                        loading='lazy'
                                         className='object-cover w-full h-full rounded-xl border-2 border-blue-200 dark:border-blue-900 shadow-lg group-hover:scale-105 transition-transform duration-300'
                                         sizes="(max-width: 1279px) 176px, 112px"
                                     />
