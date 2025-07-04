@@ -1,12 +1,31 @@
 "use client"
 
 import * as React from "react"
+
 import { Moon, Sun } from "lucide-react"
+
 import { useTheme } from "next-themes"
+
 import { motion } from "framer-motion"
 
 export function ModeToggle() {
     const { theme, setTheme } = useTheme()
+    const [mounted, setMounted] = React.useState(false)
+
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    if (!mounted) {
+        return (
+            <div className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 bg-secondary/20 dark:bg-secondary/10 rounded-xl border border-border w-fit sm:w-auto max-w-full">
+                <div className="flex items-center gap-1 sm:gap-2 px-2 py-2 sm:px-3 rounded-lg text-sm font-medium" style={{ minWidth: 40 }}>
+                    <Moon className="h-[1.2rem] w-[1.2rem]" />
+                    <span className="hidden xs:inline sm:inline">Dark</span>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 bg-secondary/20 dark:bg-secondary/10 rounded-xl border border-border w-fit sm:w-auto max-w-full">
