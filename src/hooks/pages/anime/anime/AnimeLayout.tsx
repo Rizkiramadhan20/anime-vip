@@ -4,15 +4,15 @@ import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { LatestRelease, PopularToday, TopUpcoming, BannerItem } from '@/interface/Anime';
+import { LatestRelease, PopularToday, TopUpcoming, BannerItem, StudioItem, SeasonItem } from '@/interface/Anime';
 
-import PopularLayout from './popular/PopularLayout';
+import PopularLayout from '@/hooks/pages/anime/anime/popular/PopularLayout';
 
 import LatestRealese from "@/hooks/pages/anime/anime/latest-realese/Latest_realese"
 
-import BannerLayout from "./banner/BannerLayout";
+import BannerLayout from "@/hooks/pages/anime/anime/banner/BannerLayout";
 
-import TopUpcomingAside from './aside/TopUpcomingAside';
+import TopUpcomingAside from '@/hooks/pages/anime/anime/aside/TopUpcomingAside';
 
 import Schedule from "@/hooks/pages/anime/anime/schedule/Schedule"
 

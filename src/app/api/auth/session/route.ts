@@ -83,7 +83,7 @@ export async function GET() {
               email: userData.email,
               displayName: userData.displayName,
               role: userData.role,
-              token: userData.token,
+              days: userData.days,
               photoURL: userData.photoURL,
               emailVerified: userData.emailVerified || false,
               isActive: userData.isActive || true,

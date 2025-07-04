@@ -8,7 +8,7 @@ export interface UserAccount {
   email: string;
   displayName: string;
   role: Role;
-  token: number;
+  days: number;
   photoURL?: string;
   updatedAt: Date;
   createdAt: Date;

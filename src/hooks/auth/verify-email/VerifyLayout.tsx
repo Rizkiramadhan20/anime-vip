@@ -185,18 +185,20 @@ export default function VerifyEmailPage() {
                             </Button>
                         </div>
 
-                        <Button
-                            type="submit"
-                            disabled={isLoading || otp.length !== 6}
-                            className="w-full py-3 sm:py-2"
-                            size="lg"
-                        >
-                            {isLoading ? (
-                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground mx-auto"></div>
-                            ) : (
-                                'Verify Email'
-                            )}
-                        </Button>
+                        <form className="mb-6 sm:mb-8" onSubmit={handleVerify}>
+                            <Button
+                                type="submit"
+                                disabled={isLoading || otp.length !== 6}
+                                className="w-full py-3 sm:py-2"
+                                size="lg"
+                            >
+                                {isLoading ? (
+                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground mx-auto"></div>
+                                ) : (
+                                    'Verify Email'
+                                )}
+                            </Button>
+                        </form>
                     </div>
                 </div>
 
