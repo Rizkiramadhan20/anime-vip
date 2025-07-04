@@ -176,3 +176,20 @@ export interface Pagination {
   nextPage: number | null;
   totalPages: number;
 }
+
+// ✅ Interface untuk Genres
+export interface GenresResponse {
+  statusCode: number;
+  statusMessage: string;
+  message: string;
+  ok: boolean;
+  data: {
+    genreList: GenresItem[];
+  };
+}
+
+export interface GenresItem {
+  genreId: string;
+  title: string;
+  href: string;
+}
