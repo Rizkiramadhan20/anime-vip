@@ -191,3 +191,37 @@ export const fetchGenresData = async () => {
     throw error;
   }
 };
+
+// Ambil hanya data untuk Anime By Slug
+export async function fetchAnimeBySlug(slug: string) {
+  try {
+    const cleanSlug = formatSlug(slug);
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/anintv/anime/${cleanSlug}`,
+      {
+        next: { revalidate: 5 }, // Revalidate every 5 seconds
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch anime data: ${res.status} ${res.statusText}`
+      );
+    }
+
+    const data = await res.json();
+
+    // Transform data using formatSlug
+    const transformedData = JSON.parse(JSON.stringify(data), (key, value) => {
+      if (key === "href" && typeof value === "string") {
+        return formatSlug(value);
+      }
+      return value;
+    });
+
+    return transformedData;
+  } catch (error) {
+    throw error;
+  }
+}

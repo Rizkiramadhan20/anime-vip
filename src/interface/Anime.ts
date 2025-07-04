@@ -193,3 +193,97 @@ export interface GenresItem {
   title: string;
   href: string;
 }
+
+// ✅ Interface untuk by slug
+
+export interface AnimeBySlugResponse {
+  statusCode: number;
+  statusMessage: string;
+  message: string;
+  ok: boolean;
+  data: AnimeBySlugData;
+}
+
+export interface AnimeBySlugData {
+  title: string;
+  poster: string;
+  thumbnail: string;
+  japanese: string;
+  score: string;
+  producers: AnimeProducer[];
+  director: AnimeDirector[];
+  type: string;
+  status: string;
+  episodes: number | null;
+  duration: string;
+  aired: string;
+  studios: AnimeStudio[];
+  trailer: string;
+  synopsis: AnimeSynopsis;
+  genreList: AnimeGenre[];
+  characters: AnimeCharacter[];
+  recommendedAnimeList: RecommendedAnime[];
+  episodeList: AnimeEpisode[];
+  releasedOn: string;
+  updatedOn: string;
+  season: AnimeSeason;
+}
+
+export interface AnimeProducer {
+  name: string;
+  url: string;
+  animeUrl: string;
+}
+
+export interface AnimeDirector {
+  name: string;
+  url: string;
+}
+
+export interface AnimeStudio {
+  name: string;
+  url: string;
+}
+
+export interface AnimeSynopsis {
+  paragraphs: string[];
+  connections: any[];
+}
+
+export interface AnimeGenre {
+  title: string;
+  genreId: string;
+  href: string;
+}
+
+export interface AnimeCharacter {
+  name: string;
+  role: string;
+  image: string;
+  voiceActor: string;
+  voiceActorImage: string;
+  voiceActorLang: string;
+}
+
+export interface RecommendedAnime {
+  title: string;
+  poster: string;
+  animeId: string;
+  href: string;
+  otakudesuUrl: string;
+}
+
+export interface AnimeEpisode {
+  eps: string;
+  fullTitle: string;
+  status: string;
+  date: string;
+  episodeId: string;
+  href: string;
+  otakudesuUrl: string;
+}
+
+export interface AnimeSeason {
+  name: string;
+  url: string;
+}
