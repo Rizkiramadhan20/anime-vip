@@ -78,7 +78,7 @@ export default function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps)
     const handleResultClick = (href: string) => {
         setShowDropdown(false);
         setSearchQuery('');
-        router.push(href);
+        router.push(`anime/${href}`);
     };
 
     return (
@@ -110,7 +110,7 @@ export default function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps)
                             ) : (
                                 <ul>
                                     {searchResults.map((item, idx) => (
-                                        <li key={item.animeId} className="flex items-center gap-3 px-4 py-2 hover:bg-accent cursor-pointer transition" onClick={() => handleResultClick(item.href)}>
+                                        <li key={idx} className="flex items-center gap-3 px-4 py-2 hover:bg-accent cursor-pointer transition" onClick={() => handleResultClick(item.href)}>
                                             <img src={item.poster} alt={item.title} className="w-10 h-14 object-cover rounded-md border border-border" />
                                             <div className="flex-1 min-w-0">
                                                 <div className="font-medium text-sm truncate">{item.title}</div>

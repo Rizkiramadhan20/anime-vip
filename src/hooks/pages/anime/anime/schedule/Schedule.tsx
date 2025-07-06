@@ -1,9 +1,13 @@
 "use client"
 
 import React, { useState } from 'react';
+
 import { Schedule as ScheduleType, ScheduleItem } from '@/interface/Anime';
+
 import { Card } from '@/components/ui/card';
+
 import ImagePlaceholder from '@/base/helper/ImagePlaceholder';
+
 import { motion } from "framer-motion";
 
 import Image from 'next/image';

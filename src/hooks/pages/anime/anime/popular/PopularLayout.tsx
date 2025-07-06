@@ -16,6 +16,8 @@ import ImagePlaceholder from '@/base/helper/ImagePlaceholder';
 
 import { BookOpen } from 'lucide-react';
 
+import { useHorizontalDrag } from '@/base/helper/useHorizontalDrag';
+
 interface PopularProps {
     popularAnichinData: PopularToday;
 }
@@ -23,6 +25,7 @@ interface PopularProps {
 export default function PopularLayout({ popularAnichinData }: PopularProps) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const { scrollRef, isDragging, setIsDragging, onMouseDown, onTouchStart } = useHorizontalDrag();
 
     const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -39,15 +42,19 @@ export default function PopularLayout({ popularAnichinData }: PopularProps) {
                 </div>
 
                 <div
-                    className="w-full overflow-x-auto touch-pan-x cursor-grab active:cursor-grabbing select-none scrollbar-hide pb-4"
+                    ref={scrollRef}
+                    className="w-full overflow-x-auto touch-pan-x cursor-grab active:cursor-grabbing select-none pb-4 hide-scrollbar"
                     style={{
                         WebkitOverflowScrolling: 'touch',
                         overscrollBehaviorX: 'contain',
                         msOverflowStyle: 'none',
-                        scrollbarWidth: 'thin',
-                    } as React.CSSProperties}
+                        scrollbarWidth: 'none',
+                    }}
+                    onMouseDown={onMouseDown}
+                    onTouchStart={onTouchStart}
+                    onMouseLeave={() => setIsDragging(false)}
                 >
-                    <div className="grid grid-flow-col auto-cols-[80%] sm:auto-cols-[45%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[18.7%] gap-5 md:gap-7 px-1 md:px-0">
+                    <div className="grid grid-flow-col auto-cols-[80%] sm:auto-cols-[45%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[20%] gap-5 px-1 md:px-0">
                         {popularAnichinData.animeList.map((donghua, idx) => (
                             <div
                                 key={idx}
