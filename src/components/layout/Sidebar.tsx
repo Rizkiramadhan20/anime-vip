@@ -6,7 +6,7 @@ import { useAuth } from '@/utils/context/AuthContext';
 
 import { Button } from '@/components/ui/button';
 
-import { Home, Flame, Tv, Book, User, LogOut, Loader2 } from 'lucide-react';
+import { Home, Flame, Tv, Book, User, LogOut, Loader2, Download, LogIn } from 'lucide-react';
 
 import Link from 'next/link';
 
@@ -50,7 +50,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
 
                 {/* Navigation */}
                 <nav className="flex-1 flex flex-col gap-4 p-4">
-                    <Link href="/anime" className="group relative p-3 rounded-xl bg-gradient-to-br from-[var(--sidebar-primary)]/20 to-[var(--sidebar-accent)]/20 hover:from-[var(--sidebar-primary)]/30 hover:to-[var(--sidebar-accent)]/30 transition-all duration-300 border border-[var(--sidebar-border)] hover:border-[var(--sidebar-border)] flex items-center gap-3">
+                    <Link href="/anime" onClick={() => setIsSidebarOpen(false)} className="group relative p-3 rounded-xl bg-gradient-to-br from-[var(--sidebar-primary)]/20 to-[var(--sidebar-accent)]/20 hover:from-[var(--sidebar-primary)]/30 hover:to-[var(--sidebar-accent)]/30 transition-all duration-300 border border-[var(--sidebar-border)] hover:border-[var(--sidebar-border)] flex items-center gap-3">
                         <Home size={24} className="text-[var(--sidebar-primary)] group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
                         <span className="text-[var(--sidebar-primary)] font-medium lg:hidden">Home</span>
                         {/* Tooltip for large screens */}
@@ -58,23 +58,26 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                             Home
                         </span>
                     </Link>
-                    <Link href="/manga" className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
+
+                    <Link href="/manga" onClick={() => setIsSidebarOpen(false)} className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
                         <Flame size={24} className="text-[var(--sidebar-foreground)] group-hover:text-orange-400 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
-                        <span className="text-[var(--sidebar-foreground)] group-hover:text-orange-400 font-medium lg:hidden">Trending</span>
+                        <span className="text-[var(--sidebar-foreground)] group-hover:text-orange-400 font-medium lg:hidden">Donghua</span>
                         {/* Tooltip for large screens */}
                         <span className="absolute left-full ml-2 px-2 py-1 bg-[var(--sidebar)] text-[var(--sidebar-foreground)] text-sm rounded-md opacity-0 invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 whitespace-nowrap z-50">
-                            Trending
+                            Donghua
                         </span>
                     </Link>
-                    <Link href="#" className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
+
+                    <Link href="#" onClick={() => setIsSidebarOpen(false)} className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
                         <Tv size={24} className="text-[var(--sidebar-foreground)] group-hover:text-blue-400 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
-                        <span className="text-[var(--sidebar-foreground)] group-hover:text-blue-400 font-medium lg:hidden">TV Shows</span>
+                        <span className="text-[var(--sidebar-foreground)] group-hover:text-blue-400 font-medium lg:hidden">Drakor</span>
                         {/* Tooltip for large screens */}
                         <span className="absolute left-full ml-2 px-2 py-1 bg-[var(--sidebar)] text-[var(--sidebar-foreground)] text-sm rounded-md opacity-0 invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 whitespace-nowrap z-50">
-                            TV Shows
+                            Drakor
                         </span>
                     </Link>
-                    <Link href="#" className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
+
+                    <Link href="#" onClick={() => setIsSidebarOpen(false)} className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
                         <Book size={24} className="text-[var(--sidebar-foreground)] group-hover:text-green-400 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
                         <span className="text-[var(--sidebar-foreground)] group-hover:text-green-400 font-medium lg:hidden">Manga</span>
                         {/* Tooltip for large screens */}
@@ -82,12 +85,14 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                             Manga
                         </span>
                     </Link>
-                    <Link href="#" className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
-                        <User size={24} className="text-[var(--sidebar-foreground)] group-hover:text-purple-400 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
-                        <span className="text-[var(--sidebar-foreground)] group-hover:text-purple-400 font-medium lg:hidden">Profile</span>
+
+                    {/* Download Icon Link */}
+                    <Link href="#" onClick={() => setIsSidebarOpen(false)} className="group relative p-3 rounded-xl hover:bg-[var(--sidebar-accent)]/10 transition-all duration-300 flex items-center gap-3">
+                        <Download size={24} className="text-[var(--sidebar-foreground)] group-hover:text-cyan-400 group-hover:scale-110 transition-all duration-300 flex-shrink-0" />
+                        <span className="text-[var(--sidebar-foreground)] group-hover:text-cyan-400 font-medium lg:hidden">Download</span>
                         {/* Tooltip for large screens */}
                         <span className="absolute left-full ml-2 px-2 py-1 bg-[var(--sidebar)] text-[var(--sidebar-foreground)] text-sm rounded-md opacity-0 invisible lg:group-hover:opacity-100 lg:group-hover:visible transition-all duration-300 whitespace-nowrap z-50">
-                            Profile
+                            Download
                         </span>
                     </Link>
                 </nav>
@@ -115,6 +120,21 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                                 {isLoggingOut ? 'Logging out...' : 'Logout'}
                             </span>
                         </Button>
+                    </div>
+                )}
+
+                {!user && (
+                    <div className="p-4 md:hidden">
+                        <Link href="/signin">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="w-full p-3 rounded-xl bg-[var(--sidebar-primary)] text-white hover:bg-[var(--sidebar-accent)] transition-all duration-300 flex items-center gap-3 justify-start"
+                            >
+                                <LogIn size={22} className="flex-shrink-0" />
+                                <span className="font-medium">Sign In</span>
+                            </Button>
+                        </Link>
                     </div>
                 )}
             </aside>

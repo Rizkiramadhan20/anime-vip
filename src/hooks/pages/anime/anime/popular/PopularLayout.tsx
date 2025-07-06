@@ -16,7 +16,7 @@ import ImagePlaceholder from '@/base/helper/ImagePlaceholder';
 
 import { BookOpen } from 'lucide-react';
 
-import { useHorizontalDrag } from '@/base/helper/useHorizontalDrag';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 interface PopularProps {
     popularAnichinData: PopularToday;
@@ -25,7 +25,6 @@ interface PopularProps {
 export default function PopularLayout({ popularAnichinData }: PopularProps) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const { scrollRef, isDragging, setIsDragging, onMouseDown, onTouchStart } = useHorizontalDrag();
 
     const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -41,20 +40,8 @@ export default function PopularLayout({ popularAnichinData }: PopularProps) {
                     <h3 className='text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight'>Popular Today</h3>
                 </div>
 
-                <div
-                    ref={scrollRef}
-                    className="w-full overflow-x-auto touch-pan-x cursor-grab active:cursor-grabbing select-none pb-4 hide-scrollbar"
-                    style={{
-                        WebkitOverflowScrolling: 'touch',
-                        overscrollBehaviorX: 'contain',
-                        msOverflowStyle: 'none',
-                        scrollbarWidth: 'none',
-                    }}
-                    onMouseDown={onMouseDown}
-                    onTouchStart={onTouchStart}
-                    onMouseLeave={() => setIsDragging(false)}
-                >
-                    <div className="grid grid-flow-col auto-cols-[80%] sm:auto-cols-[45%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[20%] gap-5 px-1 md:px-0">
+                <ScrollArea className="w-full pb-4 overflow-x-auto scrollbar-hide">
+                    <div className="grid grid-flow-col auto-cols-[80%] sm:auto-cols-[45%] md:auto-cols-[30%] lg:auto-cols-[22%] xl:auto-cols-[18.7%] gap-5 md:gap-7 px-1 md:px-0">
                         {popularAnichinData.animeList.map((donghua, idx) => (
                             <div
                                 key={idx}
@@ -102,7 +89,8 @@ export default function PopularLayout({ popularAnichinData }: PopularProps) {
                             </div>
                         ))}
                     </div>
-                </div>
+                    <ScrollBar orientation="horizontal" />
+                </ScrollArea>
             </div>
         </section>
     )

@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import { Input } from '@/components/ui/input';
 
-import { Search, Bookmark, Menu, X, Coins, History } from 'lucide-react';
+import { Search, Bookmark, Menu, X, Coins, History, LogIn } from 'lucide-react';
 
 import { ModeToggle } from '@/utils/theme/ThemeToggle';
 
