@@ -90,6 +90,15 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Redirect to /signin if not logged in and accessing /anime/episode/
+  if (
+    !hasSessionCookie &&
+    (pathname.startsWith("/anime/episode/") ||
+      pathname.startsWith("/donghua/episode/"))
+  ) {
+    return NextResponse.redirect(new URL("/signin", request.url));
+  }
+
   // If user is not logged in and tries to access protected routes
   if (
     !hasSessionCookie &&

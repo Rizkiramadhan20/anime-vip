@@ -26,7 +26,7 @@ import { Badge } from '@/components/ui/badge'
 
 import { Info, Calendar, Clock, Eye, Star, Users, Film, User, Tag } from 'lucide-react'
 
-export default function DetailsEpisodeContent({ episodeData, slug }: { episodeData: EpisodeData, slug: string }) {
+export default function DetailsEpisodeContent({ episodeData }: { episodeData: EpisodeData, slug: string }) {
     const { user, loading } = useAuth();
     const pathname = usePathname();
     const router = useRouter();
@@ -91,10 +91,18 @@ export default function DetailsEpisodeContent({ episodeData, slug }: { episodeDa
     }, [pathname]);
 
     const handleEpisodeClick = useCallback((href: string) => {
+        if (!user) {
+            // Tampilkan pemberitahuan dan redirect ke /signin
+            if (typeof window !== 'undefined') {
+                window.alert('Please sign in to watch this episode.');
+                router.push('/signin');
+            }
+            return;
+        }
         if (!href) return;
         setIsEpisodeLoading(true);
         router.push(`/anime/episode/${href}`);
-    }, [router]);
+    }, [router, user]);
 
     // Initial server fetch
     useEffect(() => {
@@ -131,7 +139,7 @@ export default function DetailsEpisodeContent({ episodeData, slug }: { episodeDa
     };
 
     return (
-        <section className='py-8 md:py-12'>
+        <section className='py-6'>
             <LoadingOverlay isLoading={isEpisodeLoading} message="Loading episode..." />
             <LoadingOverlay isLoading={isRecommendedLoading} message="Loading anime..." />
 

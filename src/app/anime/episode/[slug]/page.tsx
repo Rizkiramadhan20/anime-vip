@@ -5,6 +5,7 @@ import DetailsEpisode from "@/hooks/pages/anime/episode/DetailsEpisode"
 import { Metadata, ResolvingMetadata } from "next"
 
 import { fetchEpisodeBySlug } from "@/lib/anime/FetchAnime"
+
 import type { EpisodeResponse } from "@/hooks/pages/anime/episode/types/interface";
 
 type Props = {

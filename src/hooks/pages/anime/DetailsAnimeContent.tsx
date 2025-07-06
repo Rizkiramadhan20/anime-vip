@@ -40,6 +40,8 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 
+import { toast } from 'sonner'
+
 interface DetailsAnimeContentProps {
     animeData: AnimeBySlugData;
 }
@@ -82,6 +84,16 @@ export default function DetailsAnimeContent({ animeData }: DetailsAnimeContentPr
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
+        if (!user) {
+            toast.warning('Silakan login terlebih dahulu untuk menonton episode.', {
+                description: 'Anda akan diarahkan ke halaman login.',
+                duration: 2000,
+            });
+            setTimeout(() => {
+                router.push('/signin');
+            }, 2000);
+            return;
+        }
         setLoadingId(href);
         setLoadingProgress(0);
 

@@ -17,13 +17,13 @@ import CompletedLayout from "@/hooks/pages/anime/anime/completed/CompletedLayout
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'AniHuaVerse - Anime',
-    description: 'AniHuaVerse - Anime',
+    title: 'AniHuaVerse: Satu Versi, Semua Dunia - Anime',
+    description: 'Selamat datang di AniHuaVerse, gerbang ke dunia hiburan Asia yang tak terbatas. Satu tempat untuk menyelami kisah-kisah terbaik dari Jepang, Tiongkok, dan Korea – semua bersatu dalam satu semesta hiburan.',
     icons: {
         icon: '/favicon.ico',
     },
     openGraph: {
-        title: 'AniHuaVerse - Anime',
+        title: 'AniHuaVerse: Satu Versi, Semua Dunia - Anime',
     },
 }
 
