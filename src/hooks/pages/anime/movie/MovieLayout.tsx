@@ -97,7 +97,7 @@ export default function AnimePage({ movieData }: AnimeContentProps) {
         <section className="py-6 px-4 sm:px-5">
             <div className='flex justify-between items-center gap-4 border-b border-gray-200 dark:border-gray-700 pb-6'>
                 <h3 className='text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white'>Movie</h3>
-                <Link href={"/item/completed"} onClick={handleLinkClick} className='text-gray-500 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 font-semibold flex items-center gap-2'>
+                <Link href={"/anime/completed"} onClick={handleLinkClick} className='text-gray-500 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 font-semibold flex items-center gap-2'>
                     Lihat Semua
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -151,7 +151,7 @@ export default function AnimePage({ movieData }: AnimeContentProps) {
                                 onDragStart={(e) => e.preventDefault()}
                             >
                                 <Link
-                                    href={`item/${item.href}`}
+                                    href={`anime/${item.href}`}
                                     className="block w-[180px] sm:w-[220px] lg:w-[260px] xl:w-[300px]"
                                     onClick={handleLinkClick}
                                 >

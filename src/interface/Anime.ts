@@ -287,3 +287,13 @@ export interface AnimeSeason {
   name: string;
   url: string;
 }
+
+// ✅ Interface untuk hasil search anime
+export interface AnimeItem {
+  title: string;
+  status: string;
+  score: string;
+  poster: string;
+  animeId: string;
+  href: string;
+}

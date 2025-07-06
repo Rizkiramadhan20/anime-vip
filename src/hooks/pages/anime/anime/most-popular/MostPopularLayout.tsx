@@ -16,6 +16,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 import { Input } from '@/components/ui/input';
 
+import Image from 'next/image';
+
 import { Filter, Search, X } from 'lucide-react';
 
 import {
@@ -400,10 +402,12 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                         {currentItems.map((item, idx) => (
                             <Card key={idx} className="group hover:shadow-lg transition-all duration-300 cursor-pointer p-0">
-                                <Link href={item.href}>
+                                <Link href={`anime/${item.href}`}>
                                     <CardContent className="p-0">
                                         <div className="relative overflow-hidden">
-                                            <img
+                                            <Image
+                                                width={1080}
+                                                height={1080}
                                                 src={item.poster}
                                                 alt={item.title}
                                                 className="w-full h-48 object-cover group-hover:brightness-75 group-hover:scale-105 transition-all duration-300"

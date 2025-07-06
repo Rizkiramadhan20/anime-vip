@@ -1,4 +1,8 @@
+import axios from "axios";
+
 import { formatSlug } from "@/base/helper/anime/FormatSlug";
+
+import type { EpisodeResponse } from "@/hooks/pages/anime/episode/types/interface";
 
 export const fetchAnimeData = async () => {
   try {
@@ -225,3 +229,133 @@ export async function fetchAnimeBySlug(slug: string) {
     throw error;
   }
 }
+
+// Ambil hanya data untuk Search Anime
+export async function searchAnime(query: string) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/anintv/search?q=${encodeURIComponent(
+        query
+      )}`,
+      {
+        next: { revalidate: 5 }, // Revalidate every 5 seconds
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch search results");
+
+    const data = await res.json();
+
+    // Transform data using formatSlug
+    const transformedData = JSON.parse(JSON.stringify(data), (key, value) => {
+      if (key === "href" && typeof value === "string") {
+        return formatSlug(value);
+      }
+      return value;
+    });
+
+    // Return animeList array
+    return transformedData.data?.animeList || [];
+  } catch (error) {
+    console.error("Error searching anime:", error);
+    throw error;
+  }
+}
+
+export async function fetchEpisodeBySlug(
+  slug: string
+): Promise<EpisodeResponse> {
+  try {
+    const cleanSlug = formatSlug(slug);
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/anintv/episode/${cleanSlug}`,
+      {
+        next: { revalidate: 5 }, // Revalidate every 5 seconds
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch episode data: ${res.status} ${res.statusText}`
+      );
+    }
+
+    const data = await res.json();
+
+    // Fetch anime data to get the poster
+    const animeRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/anintv/anime/${data.data.animeId}`,
+      {
+        next: { revalidate: 5 }, // Revalidate every 5 seconds
+      }
+    );
+
+    if (animeRes.ok) {
+      const animeData = await animeRes.json();
+      // Add the poster from anime data
+      data.data.poster = animeData.data?.poster || null;
+      // Add recommended anime list from anime data
+      data.data.recommendedAnimeList =
+        animeData.data?.recommendedAnimeList || [];
+    }
+
+    // Transform data using formatSlug
+    const transformedData = JSON.parse(JSON.stringify(data), (key, value) => {
+      if (key === "href" && typeof value === "string") {
+        return formatSlug(value);
+      }
+      return value;
+    });
+
+    return transformedData as EpisodeResponse;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const fetchServerUrl = async (
+  serverId: string
+): Promise<{
+  statusCode: number;
+  statusMessage: string;
+  message: string;
+  ok: boolean;
+  data: {
+    url: string;
+  };
+  pagination: null;
+}> => {
+  try {
+    const response = await axios.get<{
+      statusCode: number;
+      statusMessage: string;
+      message: string;
+      ok: boolean;
+      data: {
+        url: string;
+      };
+      pagination: null;
+    }>(`${process.env.NEXT_PUBLIC_API_URL}/anintv/server/${serverId}`);
+
+    // Transform data using formatSlug
+    const transformedData = JSON.parse(
+      JSON.stringify(response.data),
+      (key, value) => {
+        if (key === "href" && typeof value === "string") {
+          return formatSlug(value);
+        }
+        return value;
+      }
+    );
+
+    return transformedData;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch server URL"
+      );
+    }
+    throw new Error("Failed to fetch server URL");
+  }
+};

@@ -54,7 +54,7 @@ export default function PopularLayout({ popularAnichinData }: PopularProps) {
                                 className="group h-full flex flex-col justify-end"
                             >
                                 <Link
-                                    href={`donghua/${donghua.href}`}
+                                    href={`anime/${donghua.href}`}
                                     className="block h-full"
                                     onClick={handleLinkClick}
                                 >
