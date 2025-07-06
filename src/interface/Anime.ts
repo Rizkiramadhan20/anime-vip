@@ -319,3 +319,49 @@ export interface CompletedAnimeItem {
   animeId: string;
   href: string;
 }
+
+// ✅ Interface untuk hasil latest action adventure
+
+export interface MovieListItem {
+  title: string;
+  poster: string;
+  type: string;
+  status: string;
+  score: string;
+  animeId: string;
+  href: string;
+  episodes: number | null;
+  dubStatus: string;
+}
+
+export interface MovieListResponse {
+  statusCode: number;
+  statusMessage: string;
+  message: string;
+  ok: boolean;
+  data: {
+    movieList: MovieListItem[];
+  };
+}
+
+// ✅ Interface untuk hasil movie
+export interface MovieSimpleItem {
+  title: string;
+  poster: string;
+  type: string;
+  status: string;
+  subType: string;
+  animeId: string;
+  href: string;
+}
+
+export interface MovieSimpleResponse {
+  statusCode: number;
+  statusMessage: string;
+  message: string;
+  ok: boolean;
+  data: {
+    list: MovieSimpleItem[];
+  };
+  pagination: Pagination;
+}

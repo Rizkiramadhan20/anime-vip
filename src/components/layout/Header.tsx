@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import { Input } from '@/components/ui/input';
 
-import { Search, Bookmark, Menu, X, Coins, History, LogIn } from 'lucide-react';
+import { Search, Bookmark, Menu, X, Coins, History, LogIn, Crown } from 'lucide-react';
 
 import { ModeToggle } from '@/utils/theme/ThemeToggle';
 
@@ -20,13 +20,19 @@ import { searchAnime } from '@/lib/anime/FetchAnime';
 
 import { AnimeItem } from '@/interface/Anime';
 
+import { Button } from '@/components/ui/button';
+
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+
+import { Role } from '@/interface/Auth';
+
 interface HeaderProps {
     isSidebarOpen: boolean;
     setIsSidebarOpen: (open: boolean) => void;
 }
 
 export default function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const [searchQuery, setSearchQuery] = React.useState('');
     const [searchResults, setSearchResults] = React.useState<AnimeItem[]>([]);
     const [showDropdown, setShowDropdown] = React.useState(false);
@@ -82,6 +88,11 @@ export default function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps)
         setShowDropdown(false);
         setSearchQuery('');
         router.push(`anime/${href}`);
+    };
+
+    const handleLogout = async () => {
+        await logout();
+        router.push('/signin');
     };
 
     return (
@@ -153,28 +164,47 @@ export default function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps)
 
                 {/* Token Display */}
                 <div className="flex items-center gap-1 sm:gap-2 px-2 py-1 sm:px-3 sm:py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-lg border border-yellow-500/30">
-                    <Coins size={16} className="text-yellow-400 sm:w-[18px] sm:h-[18px]" />
+                    <Crown size={16} className="text-yellow-400 sm:w-[18px] sm:h-[18px]" />
                     <span className="text-yellow-400 font-semibold text-xs sm:text-sm">
-                        {user ? user.days : 'premium'}
+                        {user ? (
+                            <>
+                                {user.days} <span className="ml-1">Days</span>
+                            </>
+                        ) : (
+                            'Premium'
+                        )}
                     </span>
                 </div>
 
                 {/* User Profile */}
                 {user ? (
-                    <div className="hidden md:flex items-center gap-2 sm:gap-3">
-                        <span className="font-medium text-[var(--sidebar-foreground)] hidden md:block">{user?.displayName}</span>
-                        <Avatar className="w-9 h-9 sm:w-10 sm:h-10 ring-2 ring-[var(--sidebar-primary)] hover:ring-[var(--sidebar-primary)] transition-all duration-300">
-                            <AvatarImage src={user?.photoURL || undefined} />
-                            <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white font-semibold">
-                                {user?.displayName?.[0] || 'U'}
-                            </AvatarFallback>
-                        </Avatar>
-                    </div>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <div className="hidden md:flex items-center gap-2 sm:gap-3 cursor-pointer">
+                                <span className="font-medium text-[var(--sidebar-foreground)] hidden md:block">{user?.displayName}</span>
+                                <Avatar className="w-9 h-9 sm:w-10 sm:h-10 ring-2 ring-[var(--sidebar-primary)] hover:ring-[var(--sidebar-primary)] transition-all duration-300">
+                                    <AvatarImage src={user?.photoURL || undefined} />
+                                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white font-semibold">
+                                        {user?.displayName?.[0] || 'U'}
+                                    </AvatarFallback>
+                                </Avatar>
+                            </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                            <DropdownMenuItem onClick={() => router.push(user.role === Role.ADMIN ? '/dashboard' : '/profile')}>Profile</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem variant="destructive" onClick={handleLogout}>Logout</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 ) : (
                     <Link href="/signin">
-                        <button className="hidden md:block px-3 py-2 sm:px-4 sm:py-2 bg-[var(--sidebar-primary)] text-white rounded-lg font-semibold hover:bg-[var(--sidebar-accent)] transition-colors duration-200 text-sm sm:text-base">
+                        <Button
+                            className="hidden md:flex items-center gap-1 px-3 py-2 sm:px-3 sm:py-2 bg-[var(--sidebar-primary)] text-white rounded-[var(--radius-md)] font-semibold hover:bg-[var(--sidebar-primary)] hover:brightness-90 transition-colors duration-200 text-sm sm:text-base border border-[var(--sidebar-border)] shadow-none"
+                            style={{ boxShadow: 'none' }}
+                        >
+                            <LogIn size={16} className="mr-1" />
                             Sign In
-                        </button>
+                        </Button>
                     </Link>
                 )}
             </div>

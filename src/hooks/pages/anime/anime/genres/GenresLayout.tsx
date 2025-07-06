@@ -162,7 +162,7 @@ const genreIcons: Record<string, LucideIcon> = {
 
 export default function GenresLayout({ GenresData }: GenresContentProps) {
     const [showAll, setShowAll] = useState(false);
-    const initialCount = 28;
+    const initialCount = 24;
     const displayedGenres = showAll ? GenresData.genreList : GenresData.genreList.slice(0, initialCount);
 
     return (
@@ -189,7 +189,7 @@ export default function GenresLayout({ GenresData }: GenresContentProps) {
                             className="h-auto p-0 group relative overflow-hidden"
                             asChild
                         >
-                            <Link href={item.href}>
+                            <Link href={`anime/genres/${item.href}`}>
                                 <Card className='w-full h-full group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-300 border-border/50 hover:border-primary/30 bg-card/50 hover:bg-card backdrop-blur-sm'>
                                     <CardContent className='p-5 text-center relative z-10'>
                                         <div className='flex justify-center mb-4'>

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { fetchAnimeData, fetchMovieData, fetchMostPopularData, fetchGenresData, fetchCompletedData } from '@/lib/anime/FetchAnime';
+import { fetchAnimeData, fetchMovieData, fetchMostPopularData, fetchGenresData, fetchCompletedData, fetchLatestActionAdventureData, fetchMoviesData } from '@/lib/anime/FetchAnime';
 
 import AnimeLayout from '@/hooks/pages/anime/anime/AnimeLayout';
 
@@ -13,6 +13,8 @@ import MostPopularLayout from "@/hooks/pages/anime/anime/most-popular/MostPopula
 import GenresLayout from "@/hooks/pages/anime/anime/genres/GenresLayout"
 
 import CompletedLayout from "@/hooks/pages/anime/anime/completed/CompletedLayout"
+
+import LatestActionAdventure from "@/hooks/pages/anime/anime/latest-action-adventure/LatestActionAdventure"
 
 import { Metadata } from 'next';
 
@@ -34,6 +36,8 @@ export default async function Page() {
         const mostPopularData = await fetchMostPopularData();
         const GenresData = await fetchGenresData();
         const completedData = await fetchCompletedData();
+        const latestAdventureActionData = await fetchLatestActionAdventureData();
+        const MovieActionData = await fetchMoviesData();
 
         return <Fragment>
             <AnimeLayout animeData={animeData} />
@@ -41,6 +45,7 @@ export default async function Page() {
             <MostPopularLayout mostPopularData={mostPopularData} />
             <GenresLayout GenresData={GenresData} />
             <CompletedLayout completedData={completedData} />
+            <LatestActionAdventure latestAdventureActionData={latestAdventureActionData} MovieActionData={MovieActionData} />
         </Fragment>;
     } catch (error) {
         console.error('Error fetching home data:', error);

@@ -65,6 +65,7 @@ export default function Schedule({ schedule }: ScheduleProps) {
                     ))}
                 </div>
             </div>
+
             {/* Anime Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
                 {animeList.map((anime) => (
@@ -94,7 +95,7 @@ export default function Schedule({ schedule }: ScheduleProps) {
                                                 return (
                                                     <Link
                                                         key={idx}
-                                                        href={`/genres/${slug}`}
+                                                        href={`/anime/genres/${slug}`}
                                                         className="inline-block rounded bg-primary/20 px-1.5 sm:px-2 py-0.5 text-white hover:bg-primary/40 transition-colors duration-150"
                                                     >
                                                         {Item}

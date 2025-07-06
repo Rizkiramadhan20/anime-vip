@@ -40,7 +40,7 @@ export default function CompletedLayout({ completedData }: GenresContentProps) {
         <section ref={sectionRef} className='py-6 px-4 sm:px-5' id="completed-section">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-4 border-b border-border pb-4 md:pb-6">
                 <div className="flex items-center gap-4">
-                    <h3 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Completed</h3>
+                    <h3 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Anime Completed</h3>
                 </div>
                 <Link href={"/anime/completed"} className="mt-2 md:mt-0 text-sm md:text-base text-muted-foreground hover:text-primary transition-colors duration-200 font-semibold flex items-center gap-2">
                     Lihat Semua
