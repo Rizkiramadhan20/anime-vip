@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useRef } from 'react'
 
 import { mostPopularItem } from '@/interface/Anime';
 
@@ -45,6 +45,7 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
     const [showFilters, setShowFilters] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12; // Number of items to show per page
+    const sectionRef = useRef<HTMLElement>(null);
 
     // Extract unique values for filters
     const uniqueTypes = useMemo(() => {
@@ -247,8 +248,16 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
         return items;
     };
 
+    // Fungsi scroll ke atas ke section
+    const scrollToSection = () => {
+        const el = document.getElementById('most-popular-section');
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <section className='py-6 px-4 sm:px-5'>
+        <section ref={sectionRef} id="most-popular-section" className='py-6 px-4 sm:px-5'>
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-4 border-b border-border pb-4 md:pb-6">
                 <div className="flex items-center gap-4">
                     <h3 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Most Popular</h3>
@@ -296,8 +305,9 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
                             </div>
 
                             {/* Search */}
-                            <div className="space-y-2">
+                            <div className="flex flex-col space-y-2">
                                 <label className="text-sm font-medium text-foreground">Search</label>
+
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                                     <Input
@@ -310,7 +320,7 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
                             </div>
 
                             {/* Sort By */}
-                            <div className="space-y-2">
+                            <div className="flex flex-col space-y-2">
                                 <label className="text-sm font-medium text-foreground">Sort By</label>
                                 <Select value={sortBy} onValueChange={setSortBy}>
                                     <SelectTrigger>
@@ -326,9 +336,10 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
                             </div>
 
                             {/* Type Filter */}
-                            <div className="space-y-2">
+                            <div className="flex flex-col space-y-2">
                                 <label className="text-sm font-medium text-foreground">Type</label>
-                                <div className="space-y-2 max-h-32 overflow-y-auto">
+
+                                <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
                                     {uniqueTypes.map((type) => (
                                         <div key={type} className="flex items-center space-x-2">
                                             <Checkbox
@@ -348,7 +359,7 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
                             </div>
 
                             {/* Status Filter */}
-                            <div className="space-y-2">
+                            <div className="flex flex-col space-y-2">
                                 <label className="text-sm font-medium text-foreground">Status</label>
                                 <div className="space-y-2 max-h-32 overflow-y-auto">
                                     {uniqueStatuses.map((status) => (
@@ -370,7 +381,7 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
                             </div>
 
                             {/* Dub Status Filter */}
-                            <div className="space-y-2">
+                            <div className="flex flex-col space-y-2">
                                 <label className="text-sm font-medium text-foreground">Dub Status</label>
                                 <Select value={selectedDubStatus} onValueChange={setSelectedDubStatus}>
                                     <SelectTrigger>
@@ -470,49 +481,67 @@ export default function MostPopularLayout({ mostPopularData }: AnimeContentProps
 
                     {/* Pagination */}
                     {filteredAnimeList.length > 0 && totalPages > 1 && (
-                        <div className="flex justify-between mt-8">
-                            {/* Page Info */}
-                            <div className="flex justify-center">
-                                <p className="text-sm text-muted-foreground">
-                                    Page {currentPage} of {totalPages}
-                                </p>
+                        <>
+                            <div className='flex justify-between mt-5'>
+                                <div className="flex justify-center mt-6">
+                                    <p className="text-sm text-muted-foreground">
+                                        Page {currentPage} of {totalPages}
+                                    </p>
+                                </div>
+
+                                <div className="mt-4 flex justify-center">
+                                    <Pagination>
+                                        <PaginationContent>
+                                            <PaginationItem>
+                                                <PaginationPrevious
+                                                    href="#"
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        setCurrentPage(p => {
+                                                            const newPage = Math.max(1, p - 1);
+                                                            if (newPage !== p) scrollToSection();
+                                                            return newPage;
+                                                        });
+                                                    }}
+                                                    aria-disabled={currentPage === 1}
+                                                />
+                                            </PaginationItem>
+                                            {Array.from({ length: totalPages }, (_, i) => (
+                                                <PaginationItem key={i}>
+                                                    <PaginationLink
+                                                        href="#"
+                                                        isActive={currentPage === i + 1}
+                                                        onClick={e => {
+                                                            e.preventDefault();
+                                                            if (currentPage !== i + 1) {
+                                                                setCurrentPage(i + 1);
+                                                                scrollToSection();
+                                                            }
+                                                        }}
+                                                    >
+                                                        {i + 1}
+                                                    </PaginationLink>
+                                                </PaginationItem>
+                                            ))}
+                                            <PaginationItem>
+                                                <PaginationNext
+                                                    href="#"
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        setCurrentPage(p => {
+                                                            const newPage = Math.min(totalPages, p + 1);
+                                                            if (newPage !== p) scrollToSection();
+                                                            return newPage;
+                                                        });
+                                                    }}
+                                                    aria-disabled={currentPage === totalPages}
+                                                />
+                                            </PaginationItem>
+                                        </PaginationContent>
+                                    </Pagination>
+                                </div>
                             </div>
-
-                            {/* Pagination Controls */}
-                            <div className="flex justify-center">
-                                <Pagination>
-                                    <PaginationContent>
-                                        <PaginationItem>
-                                            <PaginationPrevious
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    if (currentPage > 1) {
-                                                        setCurrentPage(currentPage - 1);
-                                                    }
-                                                }}
-                                                className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                                            />
-                                        </PaginationItem>
-
-                                        {generatePaginationItems()}
-
-                                        <PaginationItem>
-                                            <PaginationNext
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    if (currentPage < totalPages) {
-                                                        setCurrentPage(currentPage + 1);
-                                                    }
-                                                }}
-                                                className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-                                            />
-                                        </PaginationItem>
-                                    </PaginationContent>
-                                </Pagination>
-                            </div>
-                        </div>
+                        </>
                     )}
                 </div>
             </div>

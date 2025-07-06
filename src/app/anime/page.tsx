@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { fetchAnimeData, fetchMovieData, fetchMostPopularData, fetchGenresData } from '@/lib/anime/FetchAnime';
+import { fetchAnimeData, fetchMovieData, fetchMostPopularData, fetchGenresData, fetchCompletedData } from '@/lib/anime/FetchAnime';
 
 import AnimeLayout from '@/hooks/pages/anime/anime/AnimeLayout';
 
@@ -11,6 +11,8 @@ import AnimeSkelaton from '@/hooks/pages/anime/anime/AnimeSkelaton';
 import MostPopularLayout from "@/hooks/pages/anime/anime/most-popular/MostPopularLayout"
 
 import GenresLayout from "@/hooks/pages/anime/anime/genres/GenresLayout"
+
+import CompletedLayout from "@/hooks/pages/anime/anime/completed/CompletedLayout"
 
 import { Metadata } from 'next';
 
@@ -31,12 +33,14 @@ export default async function Page() {
         const movieData = await fetchMovieData();
         const mostPopularData = await fetchMostPopularData();
         const GenresData = await fetchGenresData();
+        const completedData = await fetchCompletedData();
 
         return <Fragment>
             <AnimeLayout animeData={animeData} />
             <MovieLayout movieData={movieData} />
             <MostPopularLayout mostPopularData={mostPopularData} />
             <GenresLayout GenresData={GenresData} />
+            <CompletedLayout completedData={completedData} />
         </Fragment>;
     } catch (error) {
         console.error('Error fetching home data:', error);

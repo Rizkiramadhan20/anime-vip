@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
@@ -18,10 +16,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "AniHuaVerse",
-  description: "AniHuaVerse adalah destinasi utama para pecinta animasi Asia! Kami menyajikan ribuan episode anime Jepang, donghua Tiongkok, dan koleksi manga serta manhua yang terus diperbarui. Dengan tampilan antarmuka yang ramah pengguna, sistem streaming cepat, serta dukungan subtitle Indonesia, AniHuaVerse hadir untuk memanjakan para penggemar budaya pop Asia dari berbagai kalangan. Temukan anime musiman, donghua aksi-fantasi, hingga manga klasik—semuanya di satu tempat!",
-};
+
+import { metadata } from "@/base/meta/Metadata";
+
+export { metadata };
+
+metadata.manifest = "/manifest.json";
 
 export default function RootLayout({
   children,

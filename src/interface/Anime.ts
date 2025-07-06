@@ -297,3 +297,25 @@ export interface AnimeItem {
   animeId: string;
   href: string;
 }
+
+// ✅ Interface untuk hasil Completed
+export interface CompletedResponse {
+  statusCode: number;
+  statusMessage: string;
+  message: string;
+  ok: boolean;
+  data: {
+    animeList: CompletedAnimeItem[];
+  };
+  pagination: Pagination;
+}
+
+export interface CompletedAnimeItem {
+  title: string;
+  poster: string;
+  type: string;
+  sub: string;
+  status: string;
+  animeId: string;
+  href: string;
+}

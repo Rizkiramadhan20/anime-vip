@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
+
 import Link from 'next/link';
+
 import { useRouter } from 'next/navigation';
 
 import { useAuth } from '@/utils/context/AuthContext';
@@ -15,6 +17,7 @@ import { Search, Bookmark, Menu, X, Coins, History } from 'lucide-react';
 import { ModeToggle } from '@/utils/theme/ThemeToggle';
 
 import { searchAnime } from '@/lib/anime/FetchAnime';
+
 import { AnimeItem } from '@/interface/Anime';
 
 interface HeaderProps {
